@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produkter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Overlay for å lukke menyen ved trykk utenfor -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Header med logo og menyknapp -->
+    <header class="header">
+        <h1>Helgomega AS</h1>
+        
+        <!-- Tabs inne i headeren -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="visProdukter('jagerfly')">Jagerfly</button>
+            <button class="tab-button" onclick="visProdukter('biler')">Biler</button>
+        </div>
+    
+        <div class="menu-icon" id="menu-icon">
+            <div></div>
+            <div></div>
+            <div></div> 
+        </div>
+    </header>
+    
+
+    <!-- Slide-out meny -->
+    <nav class="side-menu" id="side-menu">
+        <ul>
+            <li><a href="hjemside.html">Hjem</a></li>
+            <li><a href="index.html">Produkter</a></li>
+            <li><a href="#">Om oss</a></li>
+            <li><a href="#">min side</a></li>
+        </ul>
+    </nav>
+
+    <!-- Tabs for produkter -->
+    <div class="tabs">
+        <button class="tab-button active" onclick="visProdukter('jagerfly')">Jagerfly</button>
+        <button class="tab-button" onclick="visProdukter('biler')">Biler</button>
+    </div>
+
+    <!-- Produktcontainer -->
+    <div id="produkter" class="produkter-container"></div>
+
+    <!-- Sticky Footer -->
+    <footer class="footer">
+        <p>Helgomega AS &copy; 2025 | Kontakt: kontakt@helgomega.no</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
