@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min Side - Helgomega AS</title>
+    <link rel="stylesheet" href="min side.css">
+</head>
+<body>
+    <!-- Overlay for å lukke menyen ved trykk utenfor -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Header med logo og menyknapp -->
+    <header class="header">
+        <h1>Min Side</h1>
+        
+        <div class="menu-icon" id="menu-icon">
+            <div></div>
+            <div></div>
+            <div></div> 
+        </div>
+    </header>
+
+    <!-- Side-meny -->
+    <nav class="side-menu" id="side-menu">
+        <ul>
+            <li><a href="hjemside.html">Hjem</a></li>
+            <li><a href="index.html">Produkter</a></li>
+            <li><a href="om-oss.html">Om oss</a></li>
+            <li><a href="min-side.html">Min side</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <section class="profile-section">
+            <h2>Min Profil</h2>
+            <div class="profile-info">
+                <div class="info-group">
+                    <h3>Personlig Informasjon</h3>
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label for="name">Navn:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-post:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon:</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <button type="submit" class="submit-button">Oppdater Profil</button>
+                    </form>
+                </div>
+
+                <div class="info-group">
+                    <h3>Mine Bestillinger</h3>
+                    <div class="orders-list">
+                        <p>Ingen bestillinger ennå</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Helgomega AS - Eksklusiv ytelse, ingen kompromisser.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

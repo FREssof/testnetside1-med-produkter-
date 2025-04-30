@@ -20,63 +20,70 @@ function closeMenu() {
     document.getElementById("overlay").classList.remove("active");
 }
 
-document.getElementById("menu-icon").addEventListener("click", toggleMenu);
-document.getElementById("overlay").addEventListener("click", closeMenu);
-
-// Produktdata
-const produkter = {
-    jagerfly: [
-        { navn: "F-22 Raptor", bilde: "bilder/jagerfly/F-22 Raptor (bilde).jpg" },
-        { navn: "F-35 Lightning II", bilde: "bilder/jagerfly/F-35 Lightning II (bilde).jpg" },
-        { navn: "F-15EX Eagle II", bilde: "bilder/jagerfly/F-15EX Eagle II.jpeg" },
-        { navn: "F-14 Tomcat", bilde: "bilder/jagerfly/F-14 Tomcat.jpg" },
-        { navn: "F/A-18 Super Hornet", bilde: "bilder/jagerfly/F-18 Super Hornet.jpg" },
-        { navn: "P-51 Mustang", bilde: "bilder/jagerfly/P-51 Mustang.jpg" },
-        { navn: "F-16 Fighting Falcon", bilde: "bilder/jagerfly/F-16 Fighting Falcon.jpg" },
-        { navn: "Eurofighter Typhoon", bilde: "bilder/jagerfly/eurofighter typhoon.jpg" },
-        { navn: "Messerschmitt Bf 109", bilde: "bilder/jagerfly/Messerschmitt Bf 109.jpg" },
-        { navn: "Saab JAS 39 Gripen E", bilde: "bilder/jagerfly/Saab JAS 39 Gripen E.jpg" }
-    ],
-    biler: [
-        { navn: "Ford Mustang Shelby GT500", bilde: "bilder/biler/Ford Mustang Shelby GT500.jpg" },
-        { navn: "Chevrolet Corvette Z06", bilde: "bilder/biler/Chevrolet Corvette Z06.jpg" },
-        { navn: "Dodge Challenger SRT Hellcat Redeye", bilde: "bilder/biler/Dodge Challenger SRT Hellcat Redeye.jpg" },
-        { navn: "Chevrolet Camaro ZL1 1LE", bilde: "bilder/biler/Chevrolet Camaro ZL1 1LE.jpg" },
-        { navn: "Dodge Viper ACR", bilde: "bilder/biler/Dodge Viper ACR.jpg" },
-        { navn: "BMW M5 CS", bilde: "bilder/biler/BMW M5 CS.jpg" },
-        { navn: "Mercedes-AMG GT Black Series", bilde: "bilder/biler/Mercedes-AMG GT Black Series.jpg" },
-        { navn: "Audi RS7 Sportback Performance", bilde: "bilder/biler/Audi RS7 Sportback Performance.jpg" },
-        { navn: "Porsche 911 GT3 RS", bilde: "bilder/biler/Porsche 911 GT3 RS.webp" },
-        { navn: "Lamborghini Huracán STO", bilde: "bilder/biler/Lamborghini Huracán STO.jpg" }
-    ]
-};
-
 // Funksjon for å vise produkter
-function visProdukter(kategori) {
+async function visProdukter(kategori) {
     const container = document.getElementById("produkter");
-    container.innerHTML = "";
+    if (!container) {
+        console.error('Produktcontainer ikke funnet');
+        return;
+    }
 
-    produkter[kategori].forEach(produkt => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.style.backgroundImage = `url('${produkt.bilde}')`;
+    container.innerHTML = '<div class="loading-spinner">Laster produkter...</div>';
 
-        const overlay = document.createElement("div");
-        overlay.classList.add("card-overlay");
-        overlay.innerHTML = `<h3>${produkt.navn}</h3>`;
+    try {
+        const response = await fetch(`http://localhost:3000/api/produkter/${kategori}`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const produkter = await response.json();
+        
+        if (produkter.length === 0) {
+            container.innerHTML = '<p class="no-products">Ingen produkter funnet i denne kategorien.</p>';
+            return;
+        }
 
-        card.appendChild(overlay);
-        container.appendChild(card);
-    });
+        // Oppdater aktive tabs
+        document.querySelectorAll('.tab-button').forEach(btn => {
+            if (btn.getAttribute('data-kategori') === kategori) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
 
-    document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-    const activeButton = document.querySelector(`.tab-button[data-kategori="${kategori}"]`);
-    if (activeButton) {
-        activeButton.classList.add("active");
+        const produktHTML = produkter.map(produkt => `
+            <div class="card" style="background-image: url('${produkt.bilde}')">
+                <div class="card-overlay">
+                    <h3>${produkt.navn}</h3>
+                    <p>Kr ${produkt.pris},-</p>
+                </div>
+            </div>
+        `).join('')
+
+        container.innerHTML = produktHTML;
+
+    } catch (error) {
+        console.error('Feil ved lasting av produkter:', error);
+        container.innerHTML = `
+            <div class="error-message">
+                <p>Kunne ikke laste produktene. Vennligst sjekk at serveren kjører.</p>
+                <button onclick="visProdukter('${kategori}')">Prøv igjen</button>
+            </div>`;
     }
 }
+
 function gåTilProdukt(kategori) {
     window.location.href = `startside.html#${kategori}`;
 }
-// Initialiser første visning
-document.addEventListener("DOMContentLoaded", () => visProdukter('jagerfly'));
+
+// Initialiser nettsiden
+document.addEventListener("DOMContentLoaded", () => {
+    visProdukter('jagerfly');
+    
+    // Setup menu functionality
+    const menuIcon = document.getElementById("menu-icon");
+    const sideMenu = document.getElementById("side-menu");
+    const overlay = document.getElementById("overlay");
+
+    menuIcon?.addEventListener("click", toggleMenu);
+    overlay?.addEventListener("click", closeMenu);
+});

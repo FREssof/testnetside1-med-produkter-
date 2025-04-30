@@ -1,0 +1,204 @@
+/* Grunnleggende styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1f36;
+    margin: 0;
+    padding: 0;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #005999;
+    padding: 15px 20px;
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Meny-relaterte stiler */
+.menu-icon {
+    width: 40px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 1100;
+}
+
+.menu-icon div {
+    width: 100%;
+    height: 5px;
+    background: white;
+    border-radius: 5px;
+}
+
+/* Hovedinnhold */
+.content {
+    padding: 80px 20px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Hero-seksjon */
+.about-hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(to right, #005999, #1a1f36);
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.about-hero h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #ffaa00;
+}
+
+/* Informasjonskort */
+.about-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.info-card {
+    background: #0d1321;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-card h3 {
+    color: #ffaa00;
+    margin-bottom: 15px;
+}
+
+.info-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-card ul li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.info-card ul li:before {
+    content: "•";
+    color: #ffaa00;
+    position: absolute;
+    left: 0;
+}
+
+/* Team-seksjon */
+.team-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.team-section h2 {
+    color: #ffaa00;
+    margin-bottom: 30px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.team-member {
+    background: #0d1321;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+}
+
+.team-member h4 {
+    color: #ffaa00;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+.footer {
+    background: #005999;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Side-meny */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background: #0d1321;
+    transition: right 0.3s ease-in-out;
+    padding-top: 60px;
+    z-index: 1101;
+}
+
+.side-menu.open {
+    right: 0;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-menu ul li {
+    padding: 15px;
+    border-bottom: 1px solid #2a2f45;
+    text-align: center;
+}
+
+.side-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+}
+
+.side-menu ul li a:hover {
+    font-weight: bolder;
+}
+
+/* Overlay */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+}
+
+.overlay.active {
+    display: block;
+}

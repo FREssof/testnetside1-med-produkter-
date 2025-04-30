@@ -17,8 +17,8 @@
         
         <!-- Tabs inne i headeren -->
         <div class="tabs">
-            <button class="tab-button active" onclick="visProdukter('jagerfly')">Jagerfly</button>
-            <button class="tab-button" onclick="visProdukter('biler')">Biler</button>
+            <button class="tab-button" data-kategori="jagerfly" onclick="visProdukter('jagerfly')">Jagerfly</button>
+            <button class="tab-button" data-kategori="biler" onclick="visProdukter('biler')">Biler</button>
         </div>
     
         <div class="menu-icon" id="menu-icon">
@@ -34,19 +34,15 @@
         <ul>
             <li><a href="hjemside.html">Hjem</a></li>
             <li><a href="index.html">Produkter</a></li>
-            <li><a href="#">Om oss</a></li>
-            <li><a href="#">min side</a></li>
+            <li><a href="om-oss.html">Om oss</a></li>
+            <li><a href="min side.html">min side</a></li>
         </ul>
     </nav>
 
-    <!-- Tabs for produkter -->
-    <div class="tabs">
-        <button class="tab-button active" onclick="visProdukter('jagerfly')">Jagerfly</button>
-        <button class="tab-button" onclick="visProdukter('biler')">Biler</button>
-    </div>
-
     <!-- Produktcontainer -->
-    <div id="produkter" class="produkter-container"></div>
+    <div id="produkter" class="produkter-container">
+        <div id="loading" class="loading-spinner" style="display: none;">Laster...</div>
+    </div>
 
     <!-- Sticky Footer -->
     <footer class="footer">
